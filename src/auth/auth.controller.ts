@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
-import { Connection } from './interface/connection.interface';
+import { Connection } from '../users/interface/connection.interface';
 
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('auth')
