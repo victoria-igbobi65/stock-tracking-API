@@ -14,7 +14,7 @@ export class User extends BaseEntity {
     @Exclude({ toPlainOnly: true })
     password: string;
 
-    @Column({ type: 'enum', enum: Roles, default: Roles.ADMIN })
+    @Column({ type: 'enum', enum: Roles, default: Roles.STAFF })
     user_type: Roles;
 
     @BeforeInsert()
