@@ -1,9 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotAcceptableException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { UsersService } from 'src/users/users.service';
 import { User } from 'src/users/entities/user.entity';
+import { LoginDto } from './dto/login.dto';
+import { E_INCORRECT_EMAIL_OR_PASSWORD } from 'src/common/exception';
 
 @Injectable()
 export class AuthService {
@@ -13,7 +15,7 @@ export class AuthService {
     ) {}
 
     getAccessToken(user: User): string {
-        return this.jwtService.sign({ id: user.id, email: user.email });
+        return this.jwtService.sign({ userType: user.user_type, id: user.id });
     }
 
     async register(createUserDto: CreateUserDto) {
@@ -21,33 +23,13 @@ export class AuthService {
         return { data: user, accessToken: this.getAccessToken(user) };
     }
 
-    // async login(authLoginDto: AuthDto): Promise<object> {
-    //     const user = await this.validateUser(authLoginDto);
+    async login(dto: LoginDto) {
+        const { email, password } = dto;
 
-    //     const payload = {
-    //         email: user.email,
-    //         id: user.id,
-    //     };
-
-    //     const access_token = this.jwtService.sign(payload);
-    //     return { access_token: access_token };
-    // }
-
-    // async findByEmail(email: string) {
-    //     return await User.findOne({
-    //         where: {
-    //             email: email,
-    //         },
-    //     });
-    // }
-
-    // async validateUser(authLoginDto: AuthDto): Promise<User> {
-    //     const { email, password } = authLoginDto;
-
-    //     const user = await this.findByEmail(email);
-    //     if (!(await user?.validatePassword(password))) {
-    //         throw new UnauthorizedException(CommonErrors.Unauthorized);
-    //     }
-    //     return user;
-    // }
+        const user = await this.usersService.findoneByField(email, 'email');
+        if (!(await user?.validatePassword(password))) {
+            throw new NotAcceptableException(E_INCORRECT_EMAIL_OR_PASSWORD);
+        }
+        return { data: user, accessToken: this.getAccessToken(user) };
+    }
 }
