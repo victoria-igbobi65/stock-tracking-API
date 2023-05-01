@@ -30,6 +30,15 @@ export class UsersService {
         return `This action returns a #${id} user`;
     }
 
+    async findoneByField(
+        fieldValue: number | string,
+        fieldName = 'id',
+    ): Promise<User> {
+        return await this.userRepository.findOne({
+            where: { [fieldName]: fieldValue },
+        });
+    }
+
     update(id: number, updateUserDto: UpdateUserDto) {
         return `This action updates a #${id} user`;
     }
