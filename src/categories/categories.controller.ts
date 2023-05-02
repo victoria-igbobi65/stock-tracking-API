@@ -3,7 +3,6 @@ import {
     Get,
     Post,
     Body,
-    Patch,
     Param,
     Delete,
     UseGuards,
@@ -13,7 +12,6 @@ import { Category } from './entities/category.entity';
 import { UserAuthGuards } from 'src/auth/user-auth.guard';
 import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
-import { UpdateCategoryDto } from './dto/update-category.dto';
 
 @UseGuards(UserAuthGuards)
 @Controller('categories')
@@ -32,19 +30,11 @@ export class CategoriesController {
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return this.categoriesService.findOne(+id);
-    }
-
-    @Patch(':id')
-    update(
-        @Param('id') id: string,
-        @Body() updateCategoryDto: UpdateCategoryDto,
-    ) {
-        return this.categoriesService.update(+id, updateCategoryDto);
+        return this.categoriesService.findOne(id);
     }
 
     @Delete(':id')
     remove(@Param('id') id: string) {
-        return this.categoriesService.remove(+id);
+        return this.categoriesService.remove(id);
     }
 }
