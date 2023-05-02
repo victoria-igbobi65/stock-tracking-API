@@ -8,11 +8,12 @@ import {
     Delete,
     UseGuards,
 } from '@nestjs/common';
+
+import { Category } from './entities/category.entity';
+import { UserAuthGuards } from 'src/auth/user-auth.guard';
 import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
-import { UserAuthGuards } from 'src/auth/user-auth.guard';
-import { Data } from './interface/data.interface';
 
 @UseGuards(UserAuthGuards)
 @Controller('categories')
@@ -20,7 +21,7 @@ export class CategoriesController {
     constructor(private readonly categoriesService: CategoriesService) {}
 
     @Post()
-    create(@Body() dto: CreateCategoryDto): Promise<Data> {
+    create(@Body() dto: CreateCategoryDto): Promise<{ data: Category }> {
         return this.categoriesService.create(dto);
     }
 
