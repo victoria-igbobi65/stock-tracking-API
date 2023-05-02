@@ -15,7 +15,7 @@ export class AuthService {
     ) {}
 
     getAccessToken(user: User): string {
-        return this.jwtService.sign({ userType: user.user_type, id: user.id });
+        return this.jwtService.sign({ userType: user.user_type, sub: user.id });
     }
 
     async register(createUserDto: CreateUserDto) {
