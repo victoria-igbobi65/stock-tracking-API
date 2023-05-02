@@ -4,3 +4,6 @@ export const E_INCORRECT_EMAIL_OR_PASSWORD =
     'Email or password entered is incorrect!';
 export const E_PASSWORD_INCORRECT = 'The password entered is incorrect!';
 export const E_TOO_MANY_REQUESTS = 'Too many requests!';
+
+/* Category exceptions */
+export const E_CATEGORY_EXISTS = 'Ooops! This category already exists!';
