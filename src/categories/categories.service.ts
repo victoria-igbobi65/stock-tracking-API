@@ -1,8 +1,4 @@
-import {
-    ConflictException,
-    Injectable,
-    NotFoundException,
-} from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Category } from './entities/category.entity';
@@ -20,7 +16,7 @@ export class CategoriesService {
         const existingCategory = await this.categoryRepository.findOne({
             where: { name: dto.name },
         });
-        if (existingCategory) throw new ConflictException(E_CATEGORY_EXISTS);
+        if (existingCategory) throw new HttpException(E_CATEGORY_EXISTS, 409);
 
         return { data: await this.categoryRepository.save(dto) };
     }
@@ -44,7 +40,7 @@ export class CategoriesService {
         const category = await this.categoryRepository.findOne({
             where: { id: id },
         });
-        if (!category) throw new NotFoundException(E_CATEGORY_NOT_FOUND);
+        if (!category) throw new HttpException(E_CATEGORY_NOT_FOUND, 404);
         return category;
     }
 }
