@@ -1,4 +1,4 @@
-import { Injectable, NotAcceptableException } from '@nestjs/common';
+import { Injectable, HttpException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
@@ -28,7 +28,7 @@ export class AuthService {
 
         const user = await this.usersService.findoneByField(email, 'email');
         if (!(await user?.validatePassword(password))) {
-            throw new NotAcceptableException(E_INCORRECT_EMAIL_OR_PASSWORD);
+            throw new HttpException(E_INCORRECT_EMAIL_OR_PASSWORD, 400);
         }
         return { data: user, accessToken: this.getAccessToken(user) };
     }
