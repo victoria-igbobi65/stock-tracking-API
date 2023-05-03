@@ -8,3 +8,7 @@ export const E_TOO_MANY_REQUESTS = 'Too many requests!';
 /* Category exceptions */
 export const E_CATEGORY_EXISTS = 'Ooops! This category already exists!';
 export const E_CATEGORY_NOT_FOUND = 'Category not found!';
+
+/* Validation */
+export const E_COMPARE_PRICE =
+    'selling price cannot be less than or equals cost price';
