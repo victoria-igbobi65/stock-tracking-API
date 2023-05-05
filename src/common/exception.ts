@@ -12,3 +12,7 @@ export const E_CATEGORY_NOT_FOUND = 'Category not found!';
 /* Validation */
 export const E_COMPARE_PRICE =
     'selling price cannot be less than or equals cost price';
+
+/*Inventory exceptions*/
+export const E_INVENTORY_EXISTS = 'Inventory already exists!';
+export const E_INVENTORY_NOTFOUND = 'Inventory not found!';
