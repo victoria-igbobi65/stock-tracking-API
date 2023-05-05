@@ -10,14 +10,15 @@ import {
 import { InventoryService } from './inventory.service';
 import { CreateInventoryDto } from './dto/create-inventory.dto';
 import { UpdateInventoryDto } from './dto/update-inventory.dto';
+import { Inventory } from './entities/inventory.entity';
 
 @Controller('inventory')
 export class InventoryController {
     constructor(private readonly inventoryService: InventoryService) {}
 
     @Post()
-    create(@Body() createInventoryDto: CreateInventoryDto) {
-        return this.inventoryService.create(createInventoryDto);
+    create(@Body() dto: CreateInventoryDto) {
+        return this.inventoryService.create(dto);
     }
 
     @Get()
@@ -27,7 +28,7 @@ export class InventoryController {
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return this.inventoryService.findOne(+id);
+        return this.inventoryService.findOne(id);
     }
 
     @Patch(':id')
@@ -40,6 +41,6 @@ export class InventoryController {
 
     @Delete(':id')
     remove(@Param('id') id: string) {
-        return this.inventoryService.remove(+id);
+        return this.inventoryService.remove(id);
     }
 }
