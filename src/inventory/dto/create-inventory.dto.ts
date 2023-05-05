@@ -14,36 +14,36 @@ export class CreateInventoryDto {
     @IsDefined()
     @IsNotEmpty()
     @ToLowerCase()
-    name: string;
+    readonly name: string;
 
     @IsString()
     @IsDefined()
     @IsNotEmpty()
     @ToLowerCase()
-    category: string;
+    readonly category: string;
 
     @IsDefined()
     @IsNotEmpty()
     @IsPositive()
     @IsNumber()
-    quantityInStock: number;
+    readonly quantityInStock: number;
 
     @IsString()
     @IsDefined()
     @IsNotEmpty()
     @ToLowerCase()
-    description: string;
+    readonly description: string;
 
     @IsDefined()
     @IsNotEmpty()
     @IsPositive()
     @IsNumber()
-    costPrice: number;
+    readonly costPrice: number;
 
     @IsDefined()
     @IsNotEmpty()
     @IsNumber()
     @IsPositive()
     @IsSellingPriceGreaterThanCostPrice()
-    sellingPrice: number;
+    readonly sellingPrice: number;
 }
