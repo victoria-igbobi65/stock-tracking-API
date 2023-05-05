@@ -21,4 +21,8 @@ export class Inventory extends BaseEntity {
 
     @Column({ name: 'selling_price' })
     sellingPrice: number;
+    constructor(partial: Partial<Inventory>) {
+        super();
+        Object.assign(this, partial);
+    }
 }
