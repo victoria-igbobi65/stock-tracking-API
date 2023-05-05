@@ -42,8 +42,8 @@ export class InventoryService {
         return { data };
     }
 
-    update(id: number, updateInventoryDto: UpdateInventoryDto) {
-        return `This action updates a #${id} inventory`;
+    update(id: number, dto: UpdateInventoryDto) {
+        return { id, dto };
     }
 
     async remove(id: string) {
