@@ -5,7 +5,7 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import 'dotenv/config';
 import { GlobalExceptionFilter } from './common/filters/global-exception.filter';
-import { LoggingInterceptor } from './interceptor/error.interceptor';
+import { LoggingInterceptor } from './interceptor/logger.interceptor';
 import logger from './utils/logger';
 import { environment, isProdEnv } from './app.environment';
 
