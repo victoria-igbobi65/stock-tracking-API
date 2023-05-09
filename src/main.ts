@@ -1,13 +1,14 @@
 import { NestFactory } from '@nestjs/core';
 import helmet from 'helmet';
+import 'dotenv/config';
 
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
-import 'dotenv/config';
-import { GlobalExceptionFilter } from './common/filters/global-exception.filter';
+import { GlobalExceptionFilter } from './filters/global-exception.filter';
 import { LoggingInterceptor } from './interceptor/logger.interceptor';
-import logger from './utils/logger';
+import logger from './common/utils/logger';
 import { environment, isProdEnv } from './app.environment';
+import validationOptions from './common/utils/validation-options';
 
 async function bootstrap() {
     const app = await NestFactory.create(
@@ -20,15 +21,7 @@ async function bootstrap() {
         origin: '*',
     });
     app.setGlobalPrefix('api/v1');
-    app.useGlobalPipes(
-        new ValidationPipe({
-            whitelist: true,
-            transform: true,
-            transformOptions: {
-                enableImplicitConversion: true,
-            },
-        }),
-    );
+    app.useGlobalPipes(new ValidationPipe(validationOptions));
     app.useGlobalFilters(new GlobalExceptionFilter()); /*Global error handler*/
     app.useGlobalInterceptors(new LoggingInterceptor());
     return await app.listen(
