@@ -8,7 +8,7 @@ import {
     ExecutionContext,
 } from '@nestjs/common';
 //import { isDevEnv } from '@app/app.environment';
-import logger from '../utils/logger';
+import logger from '../common/utils/logger';
 import { isDevEnv } from 'src/app.environment';
 
 @Injectable()
